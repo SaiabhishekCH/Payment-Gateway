@@ -19,8 +19,6 @@ export function HomePage(props : any){
                 }
             })
             setAllUsers(response.data.user);
-            console.log(response.data);
-            console.log(response.data.user);
         }
         getUser();
     },[allUsers]);
