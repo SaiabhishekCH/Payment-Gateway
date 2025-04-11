@@ -29,6 +29,10 @@ export function Signup(){
                     <Input variant="Primary" placeholder="Email" reference={userNameRef} type ="text"/>
                     <Input variant="Primary" placeholder="password" reference={passwordRef} type="password"/>
                     <Button variant="Primary" title="Signup" onClick={clickFunc}/>
+                    <div className="flex w-[90%] items-center justify-center">
+                        <p className="text-blue-950 p-2">Already have an account? </p>
+                        <Button variant="Fourth" title="Sign in" onClick={()=>navigate("/signin")}/>
+                    </div>
                 </div>
             </div>
         </div>

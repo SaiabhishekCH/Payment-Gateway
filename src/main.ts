@@ -102,7 +102,7 @@ router.put("/update" , AuthMiddleWare , async ( req , res ) => {
 })
 
 router.get("/getUser" , AuthMiddleWare , async ( req , res ) => {
-    const filter = req.query.filter;
+    const filter = typeof req.query.filter ==="string" ? req.query.filter : "";
 
     const users = await userModel.find({
         $or : [{
@@ -230,7 +230,7 @@ router.post("/transfer" , AuthMiddleWare , async ( req , res ) => {
 
     await accountModel.updateOne({
         userId : foundToUser._id
-    } , {$inc : { balance : amount } } , {session} )
+    } , {$inc : { balance : +amount } } , {session} )
 
     await session.commitTransaction();
     res.json({

@@ -6,8 +6,25 @@ import axios from "axios";
 
 export function HomePage(props : any){
     const navigate = useNavigate();
+    const[ allUsers , setAllUsers ] = useState([]);
     const [ userName , setUserName ] = useState("");
     const [ balance , setBalance ] = useState("");
+
+    useEffect(()=>{
+        async function getUser(){
+            const response = await axios.get("http://localhost:8080/user/getUser",{
+
+                headers : {
+                    authorization : localStorage.getItem("token")
+                }
+            })
+            setAllUsers(response.data.user);
+            console.log(response.data);
+            console.log(response.data.user);
+        }
+        getUser();
+    },[allUsers]);
+
     useEffect(()=>{
         async function fetchUserData(){
             const token = localStorage.getItem("token");
@@ -48,20 +65,21 @@ export function HomePage(props : any){
                 </div>
             </div>
             <div className="m-6 flex flex-col gap-4">
-                <h1 className="font-bold">Your balance : <span className="font-normal">${balance}</span></h1>
+                <h1 className="font-bold">Your balance : <span className="font-normal">${balance ? balance : 0}</span></h1>
                 <h1>Users</h1>
                 <div className="flex gap-4">
                 <Input placeholder="Search users..." variant="Secondary" type="text"/>
                 <Button title="Search" variant="Secondary"/>
                 </div>
                 <div>
-                    <div className="flex w-[100%] justify-between ">
+                <h1 className="text-2xl m-2 mb-4 underline font-bold">Friends</h1>
+                    {allUsers.map(user=><div className="flex w-[100%] justify-between ">
                         <div className="flex justify-center items-center gap-2">
-                        <div className="h-10 w-10 rounded-full border border-black bg-slate-400 flex justify-center items-center">{userName ? userName.charAt(0).toUpperCase() : "?"}</div>
-                        <h1>{userName}</h1>
+                        <div className="h-10 w-10 rounded-full border border-black bg-slate-400 flex justify-center items-center">{user?.username ? user?.username.charAt(0).toUpperCase() : "?"}</div>
+                        <h1>{user?.username}</h1>
                         </div>
                         <div className="mt-3"><Button title={"Send Money"} variant="Tertiary" onClick={()=>navigate("/send")}/></div>
-                    </div>
+                    </div>)}
                 </div>
             </div>
         </div>
