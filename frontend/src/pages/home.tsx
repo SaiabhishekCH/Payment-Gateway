@@ -62,15 +62,15 @@ export function HomePage(props : any){
 
     return(
         <div className="h-[100vh] w-[100vw] bg-white">
-            <div className="flex justify-between border border-slate-400 h-[10%] p-4 shadow-md">
-                <span><h1 className="text-2xl font-serif font-bold text-slate-600">PayDEx</h1></span>
+            <div className="flex justify-between border border-slate-400 h-[10%] p-4 shadow-md bg-gray-800">
+                <span><h1 className="text-2xl font-serif font-bold text-slate-200">PayDEx</h1></span>
                 <div className="flex justify-center items-center gap-2">
-                    <p className="flex flex-row items-center justify-center">{userName ? userName.toLocaleUpperCase() : ""}</p>
-                    <div className="h-10 w-10 rounded-full border border-black bg-slate-400  flex justify-center items-center">{userName ? userName.charAt(0).toUpperCase() : "?"}</div>
+                    <p className="flex flex-row items-center justify-center text-slate-200">{userName ? userName.toLocaleUpperCase() : ""}</p>
+                    <div className="h-10 w-10 rounded-full border border-black bg-green-300  flex justify-center items-center">{userName ? userName.charAt(0).toUpperCase() : "?"}</div>
                 </div>
             </div>
-            <div className="m-6 flex flex-col gap-4">
-                <h1 className="font-bold">Your balance : <span className="font-normal">${balance ? balance : 0}</span></h1>
+            <div className="m-6 flex flex-col gap-4 ">
+                <h1 className="font-bold">Your balance : <span className="font-normal text-green-800">${balance ? balance : 0}</span></h1>
                 <h1>Users</h1>
                 <div className="flex gap-4">
                 <Input placeholder="Search users..." variant="Secondary" type="text"/>
@@ -80,7 +80,7 @@ export function HomePage(props : any){
                 <h1 className="text-2xl m-2 mb-4 underline font-bold">Friends</h1>
                     {isLoading?<Loading/> :allUsers.map(user=><div className="flex w-[100%] justify-between ">
                         <div className="flex justify-center items-center gap-2">
-                        <div className="h-10 w-10 rounded-full border border-black bg-slate-400 flex justify-center items-center">{user?.username ? user?.username.charAt(0).toUpperCase() : "?"}</div>
+                        <div className="h-10 w-10 rounded-full border border-black bg-green-300 flex justify-center items-center">{user?.username ? user?.username.charAt(0).toUpperCase() : "?"}</div>
                         <h1>{user?.username }</h1>
                         </div>
                         <div className="mt-3"><Button title={"Send Money"} variant="Tertiary" onClick={()=>navigate("/send")}/></div>
