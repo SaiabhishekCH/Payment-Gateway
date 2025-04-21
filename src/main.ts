@@ -13,10 +13,10 @@ router.post("/signup" , async ( req , res ) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const inputValid = z.object({
-        username : username , 
-        password : password,
-        firstName : firstName,
-        lastName : lastName
+        username : z.string() , 
+        password : z.string(),
+        firstName : z.string(),
+        lastName : z.string()
     })
     const validInput = inputValid.safeParse(req.body);
     if(!validInput){
@@ -54,8 +54,8 @@ router.post("/signin" , async ( req , res ) => {
     const password = req.body.password;
 
     const inputValid = z.object({
-        username : username , 
-        password : password
+        username : z.string(), 
+        password : z.string()
     })
     const validInput = inputValid.safeParse(req.body);
     if(!validInput){
