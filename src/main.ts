@@ -4,6 +4,7 @@ import { JWT_SECRET } from "./config";
 import {userModel , accountModel} from "./db";
 import { AuthMiddleWare } from "./middlewares";
 import mongoose from "mongoose";
+import z from "zod";
 const router = express.Router();
 
 router.post("/signup" , async ( req , res ) => {
@@ -11,7 +12,19 @@ router.post("/signup" , async ( req , res ) => {
     const password = req.body.password;
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
-
+    const inputValid = z.object({
+        username : username , 
+        password : password,
+        firstName : firstName,
+        lastName : lastName
+    })
+    const validInput = inputValid.safeParse(req.body);
+    if(!validInput){
+        res.json({
+            message : "Enter valid details"
+        })
+        return;
+    }
     const userExists = await userModel.findOne({
         username : username
     })
@@ -39,6 +52,18 @@ router.post("/signup" , async ( req , res ) => {
 router.post("/signin" , async ( req , res ) => {
     const username = req.body.username;
     const password = req.body.password;
+
+    const inputValid = z.object({
+        username : username , 
+        password : password
+    })
+    const validInput = inputValid.safeParse(req.body);
+    if(!validInput){
+        res.json({
+            message : "Enter valid details"
+        })
+        return;
+    }
 
     const foundUser = await userModel.findOne({
         username : username ,
